@@ -12,40 +12,45 @@ module MdbmDistSupport
 
     def initialize
       yield self if block_given?
+      @meta = MdbmDistSupport::Meta.new(@meta_path)
     end
 
     def run_dist
       MdbmDistSupport::Validator::check_run_dist(instance_variables)
       @lock = MdbmDistSupport::Lock.new(@lock_path)
-      @meta = MdbmDistSupport::Meta.new(@meta_path)
       @lock.try_lock
       local_up
     end
 
     def run_print_after(meta_val)
       MdbmDistSupport::Validator::check_run_print_after(instance_variables)
-      @meta = MdbmDistSupport::Meta.new(@meta_path)
       @meta.store(@meta_incr_key, meta_val)
     end
 
     private
 
     def local_up
-      date_b = @meta.fetch(@meta_incr_key)
       Tempfile.create('mdbm_dist_support') do |f|
-        Kernel.system %(#{@cmd_print} > #{f.path})
+        date_b = @meta.fetch(@meta_incr_key)
+        cmd_exec %(#{@cmd_print} > #{f.path})
         date_a = @meta.fetch(@meta_incr_key)
         abort %(no need to update) if @full_mode == false && date_a <= date_b
-        Kernel.system %(cat #{f.path} | #{@cmd_gen} #{@local_path})
+        cmd_exec %(cat #{f.path} | #{@cmd_gen} #{@local_path})
         dist
       end
     end
 
     def dist
       @dist_server_hosts.each do |s|
-        Kernel.exec %(scp -o StrictHostKeychecking=no #{@local_path} #{s}:#{@dist_path}.tmp)
-        Kernel.exec %(ssh -o StrictHostKeychecking=no #{s} \" #{@cmd_rep} #{@dist_path} #{@dist_path}.tmp && chmod 777 #{@dist_path}\")
+        cmd_exec %(scp -o StrictHostKeychecking=no #{@local_path} #{s}:#{@dist_path}.tmp)
+        cmd_exec %(ssh -o StrictHostKeychecking=no #{s} \" #{@cmd_rep} #{@dist_path} #{@dist_path}.tmp && chmod 777 #{@dist_path}\")
       end
+    end
+
+    def cmd_exec(cmd)
+      puts %(exec: #{cmd})
+      Kernel.system cmd
+      raise %(error: #{$?}) unless $?.exitstatus.zero?
     end
   end
 end
