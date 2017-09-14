@@ -25,6 +25,9 @@ end
 
 mds.run
 ```
+|parameter_name|value|
+|:-----------|:------------|
+|cmd_gen|i64_str_gen / i32_str_gen / i32_i64_gen / i32_i32_gen|
 
 ## Requires
 * ruby
