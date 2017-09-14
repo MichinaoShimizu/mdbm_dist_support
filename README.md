@@ -2,6 +2,7 @@
 mdbm distribution support gem
 
 [![Gem Version](https://badge.fury.io/rb/mdbm_dist_support.svg)](https://badge.fury.io/rb/mdbm_dist_support)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Usage
 ```
@@ -25,3 +26,12 @@ end
 mds.run
 ```
 
+## Requires
+* ruby
+* ruby-mdbm
+
+## Generate mdbm command module
+* int64_str_mdbm
+* int32_str_mdbm
+* int32_int64_mdbm
+* int32_int32_mdbm
