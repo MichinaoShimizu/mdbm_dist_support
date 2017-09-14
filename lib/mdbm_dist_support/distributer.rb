@@ -1,5 +1,6 @@
 require 'mdbm_dist_support/meta'
 require 'mdbm_dist_support/lock'
+require 'mdbm_dist_support/validator'
 require 'tempfile'
 
 module MdbmDistSupport
@@ -14,6 +15,7 @@ module MdbmDistSupport
     end
 
     def run
+      MdbmDistSupport::Validator::check(instance_variables)
       @lock = MdbmDistSupport::Lock.new(@lock_path)
       @meta = MdbmDistSupport::Meta.new(@meta_path)
       @lock.try_lock
