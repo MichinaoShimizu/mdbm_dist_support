@@ -23,7 +23,7 @@ mds = MdbmDistSupport::Distributer.new do |m|
   m.meta_incr_key     = 'incrementmode key in local meta mdbm'
 end
 
-mds.run
+mds.run_dist
 ```
 |parameter_name|value|
 |:-----------|:------------|

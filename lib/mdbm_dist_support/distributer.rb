@@ -14,24 +14,29 @@ module MdbmDistSupport
       yield self if block_given?
     end
 
-    def run
-      MdbmDistSupport::Validator::check(instance_variables)
+    def run_dist
+      MdbmDistSupport::Validator::check_run_dist(instance_variables)
       @lock = MdbmDistSupport::Lock.new(@lock_path)
       @meta = MdbmDistSupport::Meta.new(@meta_path)
       @lock.try_lock
       local_up
     end
 
+    def run_print_after(meta_val)
+      MdbmDistSupport::Validator::check_run_print_after(instance_variables)
+      @meta = MdbmDistSupport::Meta.new(@meta_path)
+      @meta.store(@meta_incr_key, metaval)
+    end
+
     private
 
     def local_up
       date_b = @meta.fetch(@meta_incr_key)
-      Tempfile.create('mdbmdistributesupport') do |f|
-        Kernel.system %(#{@cmd_print} #{date_b} > #{f.path})
+      Tempfile.create('mdbm_dist_support') do |f|
+        Kernel.system %(#{@cmd_print} > #{f.path})
         date_a = @meta.fetch(@meta_incr_key)
-        break if @full_mode == false && date_a <= date_b
+        abort %(no need to update) if @full_mode == false && date_a <= date_b
         Kernel.system %(cat #{f.path} | #{@cmd_gen} #{@local_path})
-        @meta.store(@meta_incr_key, date_a)
         dist
       end
     end
