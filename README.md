@@ -27,7 +27,8 @@ mds.run
 ```
 |parameter_name|value|
 |:-----------|:------------|
-|cmd_gen|i64_str_gen / i32_str_gen / i32_i64_gen / i32_i32_gen|
+|cmd_gen|_i64_str_gen_ / _i32_str_gen_ / _i32_i64_gen_ / _i32_i32_gen_ etc|
+|cmd_rep|_/usr/local/bin/mdbm_replace_|
 
 ## Requires
 * ruby
