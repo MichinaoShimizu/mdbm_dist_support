@@ -25,7 +25,7 @@ module MdbmDistSupport
     def run_print_after(meta_val)
       MdbmDistSupport::Validator::check_run_print_after(instance_variables)
       @meta = MdbmDistSupport::Meta.new(@meta_path)
-      @meta.store(@meta_incr_key, metaval)
+      @meta.store(@meta_incr_key, meta_val)
     end
 
     private
