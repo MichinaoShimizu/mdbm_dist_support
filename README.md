@@ -5,6 +5,8 @@ mdbm distribution support gem
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Usage
+
+update.rb
 ```
 #!/usr/bin/env ruby
 
@@ -20,7 +22,7 @@ mds = MdbmDistSupport::Distributer.new do |m|
   m.cmd_rep           = 'replace mdbm command path'
   m.full_mode         = true/false ( full or increment update )
   m.dist_server_hosts = ['distribution target server hosts array']
-  m.meta_incr_key     = 'incrementmode key in local meta mdbm'
+  m.meta_incr_key     = 'increment key in local meta mdbm'
 end
 
 mds.run_dist
@@ -29,6 +31,22 @@ mds.run_dist
 |:-----------|:------------|
 |cmd_gen|_i64_str_gen_ / _i32_str_gen_ / _i32_i64_gen_ / _i32_i32_gen_ etc|
 |cmd_rep|_/usr/local/bin/mdbm_replace_|
+
+print.rb
+```
+#!/usr/bin/env ruby
+
+require 'mdbm_dist_support'
+
+puts "hoge\tfuga"
+
+mds = MdbmDistSupport::Distributer.new do |m|
+  m.meta_path = 'local meta mdbm file path'
+  m.meta_incr_key = 'increment key in local meta mdbm'
+end
+
+mds.run_print_after('increment val in local meta mdbm')
+```
 
 ## Requires
 * ruby
