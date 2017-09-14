@@ -34,7 +34,10 @@ module MdbmDistSupport
         date_b = @meta.fetch(@meta_incr_key)
         cmd_exec %(#{@cmd_print} > #{f.path})
         date_a = @meta.fetch(@meta_incr_key)
-        abort %(no need to update) if @full_mode == false && date_a <= date_b
+        if @full_mode == false && date_a <= date_b
+          STDERR.puts 'no need to update'
+          break
+        end
         cmd_exec %(cat #{f.path} | #{@cmd_gen} #{@local_path})
         dist
       end
@@ -48,7 +51,7 @@ module MdbmDistSupport
     end
 
     def cmd_exec(cmd)
-      puts %(exec: #{cmd})
+      STDERR.puts %(exec: #{cmd})
       Kernel.system cmd
       raise %(error: #{$?}) unless $?.exitstatus.zero?
     end
