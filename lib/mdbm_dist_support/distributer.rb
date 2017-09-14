@@ -20,6 +20,7 @@ module MdbmDistSupport
       @lock = MdbmDistSupport::Lock.new(@lock_path)
       @lock.try_lock
       local_up
+      STDERR.puts 'complete run_dist'
     end
 
     def run_print_after(meta_val)
