@@ -1,6 +1,8 @@
 # mdbm_dist_support
 mdbm distribution support gem
 
+[![Gem Version](https://badge.fury.io/rb/mdbm_dist_support.svg)](https://badge.fury.io/rb/mdbm_dist_support)
+
 ## Usage
 ```
 #!/usr/bin/env ruby
