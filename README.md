@@ -4,6 +4,10 @@ mdbm distribution support library gem
 [![Gem Version](https://badge.fury.io/rb/mdbm_dist_support.svg)](https://badge.fury.io/rb/mdbm_dist_support)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Overview
+When like below sequence, use this in BAT server.
+![overview image](https://github.com/MichinaoShimizu/mdbm_dist_support/blob/master/mdbm_dist.jpg?raw=true)
+
 ## Installation
 `gem install mdbm-dist-support`
 
