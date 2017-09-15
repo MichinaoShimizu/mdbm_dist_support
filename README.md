@@ -25,8 +25,8 @@ MdbmDistSupport::Distributer.new do |m|
   m.meta_incr_key     = 'when_processed_fetched_max_date'
 end.run_dist
 ```
-### parameters
-|parameter_name|value|
+### required settings @run_dist
+|name|value|
 |:-----------|:------------|
 |lock_path|local lock file path|
 |meta_path|local meta mdbm path|
@@ -57,8 +57,8 @@ MdbmDistSupport::Distributer.new do |m|
   m.meta_incr_key = 'when_processed_fetched_max_date'
 end.run_print_after(fetched_max_date)
 ```
-### parameters
-|parameter_name|value|
+### required settings @run_print_after
+|name|value|
 |:-----------|:------------|
 |meta_path|local meta mdbm path|
 |meta_incr_key|meta mdbm key (using increment update)|
