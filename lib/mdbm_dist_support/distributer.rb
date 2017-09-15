@@ -21,7 +21,7 @@ module MdbmDistSupport
       @lock = MdbmDistSupport::Lock.new(@lock_path)
       @lock.try_lock
       local_up
-      STDERR.puts 'complete run_dist'
+      $logger.info 'complete run_dist'
     end
 
     def run_print_after(meta_val)
@@ -35,12 +35,12 @@ module MdbmDistSupport
     def local_up
       Tempfile.create('mdbm_dist_support') do |f|
         date_b = @meta.fetch(@meta_incr_key)
-        STDERR.puts "meta #{@meta_incr_key}: #{date_b}"
+        $logger.info "meta #{@meta_incr_key}: #{date_b}"
         cmd_exec %(#{@cmd_print} > #{f.path})
         date_a = @meta.fetch(@meta_incr_key)
-        STDERR.puts "meta #{@meta_incr_key}: #{date_a}"
+        $logger.info "meta #{@meta_incr_key}: #{date_a}"
         if @full_mode == false && date_a == date_b
-          STDERR.puts 'no need to update'
+          $logger.info 'no need to update'
           break
         end
         cmd_exec %(cat #{f.path} | #{@cmd_gen} #{@local_path})
@@ -56,9 +56,9 @@ module MdbmDistSupport
     end
 
     def cmd_exec(cmd)
-      STDERR.puts %(exec: #{cmd})
+      $logger.info cmd
       Kernel.system cmd
-      raise %(error: #{$?}) unless $?.exitstatus.zero?
+      raise $? unless $?.exitstatus.zero?
     end
   end
 end

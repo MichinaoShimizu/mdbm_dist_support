@@ -14,7 +14,7 @@ module MdbmDistSupport
         rc = true
         df = RUN_DIST_REQUIRE_INSTANCE_VARS - settings
         unless df.length.zero?
-          STDERR.puts %(#{df} is required )
+          $logger.error %(#{df} is required )
           rc = false
         end
         rc
@@ -24,7 +24,7 @@ module MdbmDistSupport
         rc = true
         df = RUN_PRINT_AFTER_REQUIRE_INSTANCE_VARS - settings
         unless df.length.zero?
-          STDERR.puts %(#{df} is required)
+          $logger.error %(#{df} is required)
           rc = false
         end
         rc
