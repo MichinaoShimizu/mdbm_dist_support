@@ -6,37 +6,49 @@ mdbm distribution support gem
 
 ## Usage
 
-### update.rb
+### update.rb (sample)
 ```
 #!/usr/bin/env ruby
 
 require 'mdbm_dist_support'
 
 MdbmDistSupport::Distributer.new do |m|
-  m.lock_path         = 'lock file path'
-  m.meta_path         = 'local meta mdbm file path'
-  m.local_path        = 'local mdbm file path'
-  m.dist_path         = 'distribution mdbm file path'
-  m.cmd_print         = 'print command path ( command to print Key Value seperated TAB to STDOUT )'
-  m.cmd_gen           = 'generate mdbm command path'
-  m.cmd_rep           = 'replace mdbm command path'
-  m.full_mode         = true/false
-  m.dist_server_hosts = ['distribution target server hosts array']
+  m.lock_path         = '/tmp/hoge.lck'
+  m.meta_path         = '/tmp/hoge_meta.mdbm'
+  m.local_path        = '/tmp/hoge_local.mdbm'
+  m.dist_path         = '/tmp/hoge_dist.mdbm'
+  m.cmd_print         = '/tmp/print.rb'
+  m.cmd_gen           = '/usr/local/bin/i64_str_gen'
+  m.cmd_rep           = '/usr/local/bin/mdbm_replace'
+  m.full_mode         = true
+  m.dist_server_hosts = ['localhost']
   m.meta_incr_key     = 'when_processed_fetched_max_date'
 end.run_dist
 ```
+### parameters
 |parameter_name|value|
 |:-----------|:------------|
-|cmd_gen|_i64_str_gen_ / _i32_str_gen_ / _i32_i64_gen_ / _i32_i32_gen_ etc|
-|cmd_rep|_/usr/local/bin/mdbm_replace_|
+|lock_path|local lock file path|
+|meta_path|local meta mdbm path|
+|local_path|local mdbm path|
+|dist_path|mdbm path in remote servers|
+|cmd_print|print command path|
+|cmd_gen|generate mdbm command path|
+|cmd_rep|replace mdbm command path|
+|full_mode|true: already update / false: when meta_incr_key is changed, do dist|
+|dist_server_hosts|distribute target server hosts array|
+|meta_incr_key|meta mdbm key(using increment update)|
 
-### print.rb
+### print.rb (sample)
 ```
 #!/usr/bin/env ruby
 
 require 'mdbm_dist_support'
 
-puts "hoge\tfuga"
+# fetch data and print STDOUT KEY:VALUE set
+puts "1111111\tFUGAFUGA"
+
+# fetch db max-date or max id
 fetched_max_date = '2017-09-09 11:11:11'
 
 # print after, update meta increment val.
@@ -45,6 +57,11 @@ MdbmDistSupport::Distributer.new do |m|
   m.meta_incr_key = 'when_processed_fetched_max_date'
 end.run_print_after(fetched_max_date)
 ```
+### parameters
+|parameter_name|value|
+|:-----------|:------------|
+|meta_path|local meta mdbm path|
+|meta_incr_key|meta mdbm key(using increment update)|
 
 ## Requires
 * ruby
