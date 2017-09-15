@@ -23,9 +23,7 @@ mds = MdbmDistSupport::Distributer.new do |m|
   m.full_mode         = true/false ( full or increment update )
   m.dist_server_hosts = ['distribution target server hosts array']
   m.meta_incr_key     = 'increment key in local meta mdbm'
-end
-
-mds.run_dist
+end.run_dist
 ```
 |parameter_name|value|
 |:-----------|:------------|
@@ -43,9 +41,7 @@ puts "hoge\tfuga"
 mds = MdbmDistSupport::Distributer.new do |m|
   m.meta_path = 'local meta mdbm file path'
   m.meta_incr_key = 'increment key in local meta mdbm'
-end
-
-mds.run_print_after('increment val in local meta mdbm')
+end.run_print_after('increment val in local meta mdbm')
 ```
 
 ## Requires
