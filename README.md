@@ -45,8 +45,8 @@ end.run_dist
 |meta_path|local meta mdbm path||
 |local_path|local mdbm path||
 |dist_path|mdbm path in remote servers||
-|cmd_print|print command path|you need to make this command|
-|cmd_gen|generate mdbm command path|you need to make this command|
+|cmd_print|print command path|need to make|
+|cmd_gen|generate mdbm command path|need to make|
 |cmd_rep|replace mdbm command path|[mdbm_replace](https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst)|
 |full_mode|_true_: always update / _false_: when meta_incr_key is changed, do dist||
 |dist_server_hosts|distribute target server hosts array||
@@ -71,10 +71,10 @@ MdbmDistSupport::Distributer.new do |m|
 end.run_print_after(fetched_max_date)
 ```
 #### settings @run_print_after
-|name|value|memo|
-|:-----------|:------------|:------------|
-|meta_path|local meta mdbm path||
-|meta_incr_key|meta mdbm key (using increment update)||
+|name|value|
+|:-----------|:------------|
+|meta_path|local meta mdbm path|
+|meta_incr_key|meta mdbm key (using increment update)|
 
 ## Requires
 * [mdbm](https://github.com/yahoo/mdbm)
