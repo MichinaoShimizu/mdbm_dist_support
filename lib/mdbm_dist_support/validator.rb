@@ -1,3 +1,5 @@
+require 'mdbm_dist_support/custom_logger'
+
 module MdbmDistSupport
   # settings input validator
   class Validator
@@ -9,12 +11,14 @@ module MdbmDistSupport
     RUN_PRINT_AFTER_REQUIRE_INSTANCE_VARS =
       %i[@meta_path @meta_incr_key].freeze
 
+    include MdbmDistSupport::CustomLogger
+
     class << self
       def valid_run_dist_settings?(settings)
         rc = true
         df = RUN_DIST_REQUIRE_INSTANCE_VARS - settings
         unless df.length.zero?
-          $logger.error %(#{df} is required )
+          @@logger.error %(#{df} is required )
           rc = false
         end
         rc
@@ -24,7 +28,7 @@ module MdbmDistSupport
         rc = true
         df = RUN_PRINT_AFTER_REQUIRE_INSTANCE_VARS - settings
         unless df.length.zero?
-          $logger.error %(#{df} is required)
+          @@logger.error %(#{df} is required)
           rc = false
         end
         rc
