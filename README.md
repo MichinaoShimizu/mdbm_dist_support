@@ -34,7 +34,7 @@ end.run_dist
 |dist_path|mdbm path in remote servers||
 |cmd_print|print command path|you need to make this command|
 |cmd_gen|generate mdbm command path|you need to make this command|
-|cmd_rep|replace mdbm command path||[mdbm_replace](https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst)|
+|cmd_rep|replace mdbm command path|[mdbm_replace](https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst)|
 |full_mode|_true_: always update / _false_: when meta_incr_key is changed, do dist||
 |dist_server_hosts|distribute target server hosts array||
 |meta_incr_key|meta mdbm key(using increment update)||
