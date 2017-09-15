@@ -1,12 +1,21 @@
 # mdbm_dist_support
-mdbm distribution support gem
+mdbm distribution support library gem
 
 [![Gem Version](https://badge.fury.io/rb/mdbm_dist_support.svg)](https://badge.fury.io/rb/mdbm_dist_support)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Usage
+## Installation
+`gem install mdbm-dist-support`
 
-### update.rb (sample)
+## Usage
+This library only provide 2 of method.
+* run_dist
+* run_print_after  
+
+Use like this.
+
+### Sample
+#### update.rb
 ```
 #!/usr/bin/env ruby
 
@@ -25,7 +34,7 @@ MdbmDistSupport::Distributer.new do |m|
   m.meta_incr_key     = 'when_processed_fetched_max_date'
 end.run_dist
 ```
-### required settings @run_dist
+#### required settings @run_dist
 |name|value|memo|
 |:-----------|:------------|:------------|
 |lock_path|local lock file path||
@@ -39,7 +48,7 @@ end.run_dist
 |dist_server_hosts|distribute target server hosts array||
 |meta_incr_key|meta mdbm key(using increment update)||
 
-### print.rb (sample)
+#### print.rb
 ```
 #!/usr/bin/env ruby
 
@@ -57,7 +66,7 @@ MdbmDistSupport::Distributer.new do |m|
   m.meta_incr_key = 'when_processed_fetched_max_date'
 end.run_print_after(fetched_max_date)
 ```
-### required settings @run_print_after
+#### required settings @run_print_after
 |name|value|memo|
 |:-----------|:------------|:------------|
 |meta_path|local meta mdbm path||
