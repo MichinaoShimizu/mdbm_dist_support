@@ -26,18 +26,18 @@ MdbmDistSupport::Distributer.new do |m|
 end.run_dist
 ```
 ### required settings @run_dist
-|name|value|
-|:-----------|:------------|
-|lock_path|local lock file path|
-|meta_path|local meta mdbm path|
-|local_path|local mdbm path|
-|dist_path|mdbm path in remote servers|
-|cmd_print|print command path|
-|cmd_gen|generate mdbm command path|
-|cmd_rep|replace mdbm command path|
-|full_mode|_true_: always update / _false_: when meta_incr_key is changed, do dist|
-|dist_server_hosts|distribute target server hosts array|
-|meta_incr_key|meta mdbm key(using increment update)|
+|name|value|memo|
+|:-----------|:------------|:------------|
+|lock_path|local lock file path||
+|meta_path|local meta mdbm path||
+|local_path|local mdbm path||
+|dist_path|mdbm path in remote servers||
+|cmd_print|print command path|you need to make this command|
+|cmd_gen|generate mdbm command path|you need to make this command|
+|cmd_rep|replace mdbm command path||https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst|
+|full_mode|_true_: always update / _false_: when meta_incr_key is changed, do dist||
+|dist_server_hosts|distribute target server hosts array||
+|meta_incr_key|meta mdbm key(using increment update)||
 
 ### print.rb (sample)
 ```
@@ -58,12 +58,13 @@ MdbmDistSupport::Distributer.new do |m|
 end.run_print_after(fetched_max_date)
 ```
 ### required settings @run_print_after
-|name|value|
-|:-----------|:------------|
-|meta_path|local meta mdbm path|
-|meta_incr_key|meta mdbm key (using increment update)|
+|name|value|memo|
+|:-----------|:------------|:------------|
+|meta_path|local meta mdbm path||
+|meta_incr_key|meta mdbm key (using increment update)||
 
 ## Requires
+* [mdbm](https://github.com/yahoo/mdbm)
 * ruby
 * ruby-mdbm
 
