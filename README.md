@@ -74,8 +74,6 @@ end.run_print_after(fetched_max_date)
 
 ## Requires
 * [mdbm](https://github.com/yahoo/mdbm)
-* ruby
-* ruby-mdbm
 
 ## Generate mdbm command module
 * int64_str_mdbm
