@@ -35,7 +35,7 @@ end.run_dist
 |cmd_print|print command path|
 |cmd_gen|generate mdbm command path|
 |cmd_rep|replace mdbm command path|
-|full_mode|true: already update / false: when meta_incr_key is changed, do dist|
+|full_mode|_true_: always update / _false_: when meta_incr_key is changed, do dist|
 |dist_server_hosts|distribute target server hosts array|
 |meta_incr_key|meta mdbm key(using increment update)|
 
@@ -61,7 +61,7 @@ end.run_print_after(fetched_max_date)
 |parameter_name|value|
 |:-----------|:------------|
 |meta_path|local meta mdbm path|
-|meta_incr_key|meta mdbm key(using increment update)|
+|meta_incr_key|meta mdbm key (using increment update)|
 
 ## Requires
 * ruby
