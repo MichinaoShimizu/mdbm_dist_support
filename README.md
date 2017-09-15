@@ -21,8 +21,6 @@ Use like this.
 ### Sample
 #### update.rb
 ```ruby
-#!/usr/bin/env ruby
-
 require 'mdbm_dist_support'
 
 MdbmDistSupport::Distributer.new do |m|
@@ -54,19 +52,13 @@ end.run_dist
 
 #### print.rb
 ```ruby
-#!/usr/bin/env ruby
-
 require 'mdbm_dist_support'
 
-# fetch data and print STDOUT KEY:VALUE set
 puts "1111111\tFUGAFUGA"
-
-# fetch db max-date or max id
 fetched_max_date = '2017-09-09 11:11:11'
 
-# print after, update meta increment val.
 MdbmDistSupport::Distributer.new do |m|
-  m.meta_path = 'local meta mdbm file path'
+  m.meta_path     = '/tmp/hoge_meta.mdbm'
   m.meta_incr_key = 'when_processed_fetched_max_date'
 end.run_print_after(fetched_max_date)
 ```
