@@ -6,7 +6,7 @@ mdbm distribution support gem
 
 ## Usage
 
-update.rb
+### update.rb
 ```
 #!/usr/bin/env ruby
 
@@ -20,9 +20,9 @@ mds = MdbmDistSupport::Distributer.new do |m|
   m.cmd_print         = 'print command path ( command to print Key Value seperated TAB to STDOUT )'
   m.cmd_gen           = 'generate mdbm command path'
   m.cmd_rep           = 'replace mdbm command path'
-  m.full_mode         = true/false ( full or increment update )
+  m.full_mode         = true/false
   m.dist_server_hosts = ['distribution target server hosts array']
-  m.meta_incr_key     = 'increment key in local meta mdbm'
+  m.meta_incr_key     = 'when_processed_fetched_max_date'
 end.run_dist
 ```
 |parameter_name|value|
@@ -30,18 +30,20 @@ end.run_dist
 |cmd_gen|_i64_str_gen_ / _i32_str_gen_ / _i32_i64_gen_ / _i32_i32_gen_ etc|
 |cmd_rep|_/usr/local/bin/mdbm_replace_|
 
-print.rb
+### print.rb
 ```
 #!/usr/bin/env ruby
 
 require 'mdbm_dist_support'
 
 puts "hoge\tfuga"
+fetched_max_date = '2017-09-09 11:11:11'
 
+# print after, update meta increment val.
 mds = MdbmDistSupport::Distributer.new do |m|
   m.meta_path = 'local meta mdbm file path'
-  m.meta_incr_key = 'increment key in local meta mdbm'
-end.run_print_after('increment val in local meta mdbm')
+  m.meta_incr_key = 'when_processed_fetched_max_date'
+end.run_print_after(fetched_max_date)
 ```
 
 ## Requires
