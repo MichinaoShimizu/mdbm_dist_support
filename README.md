@@ -16,7 +16,7 @@ Use like this.
 
 ### Sample
 #### update.rb
-```
+```ruby
 #!/usr/bin/env ruby
 
 require 'mdbm_dist_support'
@@ -49,7 +49,7 @@ end.run_dist
 |meta_incr_key|meta mdbm key(using increment update)||
 
 #### print.rb
-```
+```ruby
 #!/usr/bin/env ruby
 
 require 'mdbm_dist_support'
