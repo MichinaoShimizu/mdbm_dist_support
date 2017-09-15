@@ -12,7 +12,7 @@ mdbm distribution support gem
 
 require 'mdbm_dist_support'
 
-mds = MdbmDistSupport::Distributer.new do |m|
+MdbmDistSupport::Distributer.new do |m|
   m.lock_path         = 'lock file path'
   m.meta_path         = 'local meta mdbm file path'
   m.local_path        = 'local mdbm file path'
@@ -40,7 +40,7 @@ puts "hoge\tfuga"
 fetched_max_date = '2017-09-09 11:11:11'
 
 # print after, update meta increment val.
-mds = MdbmDistSupport::Distributer.new do |m|
+MdbmDistSupport::Distributer.new do |m|
   m.meta_path = 'local meta mdbm file path'
   m.meta_incr_key = 'when_processed_fetched_max_date'
 end.run_print_after(fetched_max_date)
