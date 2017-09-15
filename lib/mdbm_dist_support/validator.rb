@@ -10,14 +10,24 @@ module MdbmDistSupport
       %i[@meta_path @meta_incr_key].freeze
 
     class << self
-      def check_run_dist(settings)
+      def valid_run_dist_settings?(settings)
+        rc = true
         df = RUN_DIST_REQUIRE_INSTANCE_VARS - settings
-        raise %(validate error: #{df} : required ) unless df.length.zero?
+        unless df.length.zero?
+          STDERR.puts %(#{df} is required )
+          rc = false
+        end
+        rc
       end
 
-      def check_run_print_after(settings)
+      def valid_run_print_after_settings?(settings)
+        rc = true
         df = RUN_PRINT_AFTER_REQUIRE_INSTANCE_VARS - settings
-        raise %(validate error: #{df} : required) unless df.length.zero?
+        unless df.length.zero?
+          STDERR.puts %(#{df} is required)
+          rc = false
+        end
+        rc
       end
     end
   end

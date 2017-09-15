@@ -16,7 +16,8 @@ module MdbmDistSupport
     end
 
     def run_dist
-      MdbmDistSupport::Validator::check_run_dist(instance_variables)
+      chk = MdbmDistSupport::Validator::valid_run_dist_settings?(instance_variables)
+      raise 'validate error' unless chk
       @lock = MdbmDistSupport::Lock.new(@lock_path)
       @lock.try_lock
       local_up
@@ -24,7 +25,8 @@ module MdbmDistSupport
     end
 
     def run_print_after(meta_val)
-      MdbmDistSupport::Validator::check_run_print_after(instance_variables)
+      chk = MdbmDistSupport::Validator::valid_run_print_after_settings?(instance_variables)
+      raise 'validate error' unless chk
       @meta.store(@meta_incr_key, meta_val)
     end
 
