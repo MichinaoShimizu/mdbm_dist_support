@@ -39,16 +39,16 @@ end.run_dist
 #### settings @run_dist
 |name|value|memo|
 |:-----------|:------------|:------------|
-|lock_path|local lock file path||
-|meta_path|local meta mdbm path||
-|local_path|local mdbm path||
-|dist_path|mdbm path in remote servers||
+|lock_path|lock file path||
+|meta_path|meta mdbm path||
+|local_path|mdbm path||
+|dist_path|mdbm path in remote dist_server_hosts||
 |cmd_print|print command path|need to make|
 |cmd_gen|generate mdbm command path or `:mdbm_store_func`|need to make if you want to generate mdbm othert than _String:String_ set like _int64:String_, _int32:int64_.if you set `:mdbm_store_func` only, set use mdbm.stroe() function.|
 |cmd_rep|replace mdbm command path|[mdbm_replace](https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst)|
-|full_mode|`true`: always `false`: when meta_incr_key updated only||
-|dist_server_hosts|distribute target server hosts array||
-|meta_incr_key|meta mdbm key(using increment update)||
+|full_mode|`true`: full `false`: incremental||
+|dist_server_hosts|distribute server hosts array||
+|meta_incr_key|meta mdbm key using incremental mode||
 
 #### print.rb
 ```ruby
@@ -65,8 +65,8 @@ end.run_print_after(fetched_max_date)
 #### settings @run_print_after
 |name|value|
 |:-----------|:------------|
-|meta_path|local meta mdbm path|
-|meta_incr_key|meta mdbm key (using increment update)|
+|meta_path|meta mdbm path|
+|meta_incr_key|meta mdbm key using incremental mode|
 
 ## Requires
 * [mdbm](https://github.com/yahoo/mdbm)
