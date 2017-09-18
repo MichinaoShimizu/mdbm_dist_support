@@ -10,7 +10,7 @@ module MdbmDistSupport
   class Distributer
     attr_accessor :lock_path, :lock, :meta_path, :meta, :local_path,\
                   :dist_path, :cmd_print, :cmd_gen, :cmd_rep,\
-                  :dist_server_hosts, :meta_incr_key, :full_mode
+                  :dist_servers, :meta_incr_key, :full_mode
 
     include MdbmDistSupport::CustomLogger
 
@@ -55,7 +55,7 @@ module MdbmDistSupport
     def do_mdbm_store(f)
       f.each_line do |s|
         kv = s.split("\t")
-        m = Mdbm.new(@local_path, Mdbm::MDBM_O_RDWR | Mdbm::MDBM_O_CREAT, 777, 0, 0)
+        m = Mdbm.new(@local_path, Mdbm::MDBM_O_RDWR | Mdbm::MDBM_O_CREAT, 0644, 0, 0)
         m.store(kv[0], kv[1], Mdbm::MDBM_REPLACE)
       end
     end
@@ -65,9 +65,9 @@ module MdbmDistSupport
     end
 
     def dist
-      @dist_server_hosts.each do |s|
-        cmd_exec %(scp -o StrictHostKeychecking=no #{@local_path} #{s}:#{@dist_path}.tmp)
-        cmd_exec %(ssh -o StrictHostKeychecking=no #{s} \" #{@cmd_rep} #{@dist_path} #{@dist_path}.tmp && chmod 777 #{@dist_path}\")
+      @dist_servers.each do |s|
+        cmd_exec %(scp -P #{s[:port]} -i #{s[:key]} #{@local_path} #{s[:user]}@#{s[:host]}:#{@dist_path}.tmp)
+        cmd_exec %(ssh -p #{s[:port]} -i #{s[:key]} #{s[:user]}@#{s[:host]} \" #{@cmd_rep} #{@dist_path} #{@dist_path}.tmp && chmod 777 #{@dist_path}\")
       end
     end
 
