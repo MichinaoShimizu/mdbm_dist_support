@@ -24,16 +24,20 @@ Use like this.
 require 'mdbm_dist_support'
 
 MdbmDistSupport::Distributer.new do |m|
-  m.lock_path         = '/tmp/hoge.lck'
-  m.meta_path         = '/tmp/hoge_meta.mdbm'
-  m.local_path        = '/tmp/hoge_local.mdbm'
-  m.dist_path         = '/tmp/hoge_dist.mdbm'
-  m.cmd_print         = '/tmp/print.rb'
-  m.cmd_gen           = :mdbm_store_func
-  m.cmd_rep           = '/usr/local/bin/mdbm_replace'
-  m.full_mode         = true
-  m.dist_server_hosts = [ :host => 'localhost', :port => 22, :user => 'foo', :key => '/home/foo/.ssh/id_rsa' ]
-  m.meta_incr_key     = 'when_processed_fetched_max_date'
+  m.lock_path     = '/tmp/hoge.lck'
+  m.meta_path     = '/tmp/hoge_meta.mdbm'
+  m.local_path    = '/tmp/hoge_local.mdbm'
+  m.dist_path     = '/tmp/hoge_dist.mdbm'
+  m.cmd_print     = '/tmp/print.rb'
+  m.cmd_gen       = :mdbm_store_func
+  m.cmd_rep       = '/usr/local/bin/mdbm_replace'
+  m.full_mode     = true
+  m.dist_servers  = [
+      :host => 'remote1', :port => 22, :user => 'foo', :key => '/home/foo/.ssh/id_rsa',
+      :host => 'remote2', :port => 22, :user => 'hee', :key => '/home/hee/.ssh/id_rsa',
+      :host => 'remote3', :port => 22, :user => 'hyo', :key => '/home/hyo/.ssh/id_rsa',
+    ]
+  m.meta_incr_key = 'when_processed_fetched_max_date'
 end.run_dist
 ```
 #### settings @run_dist
