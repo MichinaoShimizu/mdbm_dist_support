@@ -32,7 +32,7 @@ MdbmDistSupport::Distributer.new do |m|
   m.cmd_gen           = :mdbm_store_func
   m.cmd_rep           = '/usr/local/bin/mdbm_replace'
   m.full_mode         = true
-  m.dist_server_hosts = ['localhost']
+  m.dist_server_hosts = [ :host => 'localhost', :port => 22, :user => 'foo', :key => '/home/foo/.ssh/id_rsa' ]
   m.meta_incr_key     = 'when_processed_fetched_max_date'
 end.run_dist
 ```
@@ -47,7 +47,7 @@ end.run_dist
 |cmd_gen|generate mdbm command path or `:mdbm_store_func`|need to make if you want to generate mdbm othert than _String:String_ set like _int64:String_, _int32:int64_.if you set `:mdbm_store_func` only, set use mdbm.stroe() function.|
 |cmd_rep|replace mdbm command path|[mdbm_replace](https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst)|
 |full_mode|`true`: full `false`: incremental||
-|dist_server_hosts|distribute server hosts array||
+|dist_servers|distribute server info array||
 |meta_incr_key|meta mdbm key using incremental mode||
 
 #### print.rb
