@@ -49,7 +49,7 @@ end.run_dist
 |cmd_print|print command path|need to make|
 |cmd_gen|generate mdbm command path or `:mdbm_store_func`|need to make if you want to generate mdbm othert than _String:String_ set like _int64:String_, _int32:int64_.if you set `:mdbm_store_func` only, set use mdbm.stroe() function.|
 |cmd_rep|replace mdbm command path|[mdbm_replace](https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst)|
-|full_mode|`true`: full `false`: incremental|if `false` set, only distribute when `meta_mdbm_increment_key` key in meta was updated. So print_command should be call `run_print_after` when new data.|
+|full_mode|`true`: full `false`: inc|when you set `false`, distribute when `meta_mdbm_increment_key` key in meta was updated only.|
 |dist_servers|distribute server info array||
 
 #### print.rb
