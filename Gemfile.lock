@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mdbm_dist_support (0.2.1)
+    mdbm_dist_support (0.2.2)
       ruby-mdbm (>= 0.0.2)
 
 GEM
@@ -34,4 +34,4 @@ DEPENDENCIES
   rspec (~> 3.0)
 
 BUNDLED WITH
-   1.14.6
+   1.15.4

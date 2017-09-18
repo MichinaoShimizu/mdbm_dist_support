@@ -3,6 +3,7 @@ require 'mdbm_dist_support/meta'
 require 'mdbm_dist_support/lock'
 require 'mdbm_dist_support/validator'
 require 'tempfile'
+require 'mdbm'
 
 module MdbmDistSupport
   # Mdbm distributer
@@ -46,9 +47,21 @@ module MdbmDistSupport
           @@logger.info 'no need to update'
           break
         end
-        cmd_exec %(cat #{f.path} | #{@cmd_gen} #{@local_path})
+        (@cmd_gen == :mdbm_store_func) ? do_mdbm_store(f) : do_outer_gen_cmd(f)
         dist
       end
+    end
+
+    def do_mdbm_store(f)
+      f.each_line do |s|
+        kv = s.split("\t")
+        m = Mdbm.new(@local_path, Mdbm::MDBM_O_RDWR | Mdbm::MDBM_O_CREAT, 777, 0, 0)
+        m.store(kv[0], kv[1], Mdbm::MDBM_REPLACE)
+      end
+    end
+
+    def do_outer_gen_cmd(f)
+      cmd_exec %(cat #{f.path} | #{@cmd_gen} #{@local_path})
     end
 
     def dist
