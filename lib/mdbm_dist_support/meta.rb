@@ -6,11 +6,11 @@ module MdbmDistSupport
     attr_accessor :meta
 
     def initialize(path)
-      @meta ||= Mdbm.new(path, Mdbm::MDBM_O_RDWR | Mdbm::MDBM_O_CREAT, 0644, 0, 0)
+      @meta = Mdbm.new(path, Mdbm::MDBM_O_RDWR | Mdbm::MDBM_O_CREAT, 0644, 0, 0)
     end
 
     def fetch(key)
-      @meta.fetch(key) || self.store(key, 0)
+      @meta.fetch(key)
     end
 
     def store(key, val)

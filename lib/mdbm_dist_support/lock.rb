@@ -1,7 +1,7 @@
 module MdbmDistSupport
   # Lockfile manager
   class Lock
-    attr_accessor :lock_file, :lock_status
+    attr_accessor :lock_file
 
     def initialize(path)
       @lock_file = open(path, 'w')
