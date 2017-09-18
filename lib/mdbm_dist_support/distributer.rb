@@ -8,7 +8,7 @@ require 'mdbm'
 module MdbmDistSupport
   # Mdbm distributer
   class Distributer
-    attr_accessor :lock_path, :lock, :meta_path, :meta, :local_path,\
+    attr_accessor :lock_path, :meta_path, :meta, :local_path,\
                   :dist_path, :cmd_print, :cmd_gen, :cmd_rep,\
                   :dist_servers, :meta_incr_key, :full_mode
 
@@ -20,17 +20,15 @@ module MdbmDistSupport
     end
 
     def run_dist
-      chk = MdbmDistSupport::Validator.valid_run_dist_settings?(instance_variables)
-      raise 'validate error' unless chk
-      @lock = MdbmDistSupport::Lock.new(@lock_path)
-      @lock.try_lock
+      raise 'validate error' unless MdbmDistSupport::Validator.valid_run_dist_settings?(instance_variables)
+      MdbmDistSupport::Lock.new(@lock_path).try_lock
       local_up
-      @@logger.info 'complete run_dist'
+      dist
+      @@logger.info "#{__method__} complete"
     end
 
     def run_print_after(meta_val)
-      chk = MdbmDistSupport::Validator.valid_run_print_after_settings?(instance_variables)
-      raise 'validate error' unless chk
+      raise 'validate error' unless MdbmDistSupport::Validator.valid_run_print_after_settings?(instance_variables)
       @meta.store(@meta_incr_key, meta_val)
     end
 
@@ -39,16 +37,13 @@ module MdbmDistSupport
     def local_up
       Tempfile.create('mdbm_dist_support') do |f|
         date_b = @meta.fetch(@meta_incr_key)
-        @@logger.info "meta #{@meta_incr_key}: #{date_b}"
         cmd_exec %(#{@cmd_print} > #{f.path})
         date_a = @meta.fetch(@meta_incr_key)
-        @@logger.info "meta #{@meta_incr_key}: #{date_a}"
         if @full_mode == false && date_a == date_b
           @@logger.info 'no need to update'
           break
         end
         (@cmd_gen == :mdbm_store_func) ? do_mdbm_store(f) : do_outer_gen_cmd(f)
-        dist
       end
     end
 
