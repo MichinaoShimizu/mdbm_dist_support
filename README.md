@@ -29,7 +29,7 @@ MdbmDistSupport::Distributer.new do |m|
   m.local_path        = '/tmp/hoge_local.mdbm'
   m.dist_path         = '/tmp/hoge_dist.mdbm'
   m.cmd_print         = '/tmp/print.rb'
-  m.cmd_gen           = '/usr/local/bin/i64_str_gen'
+  m.cmd_gen           = :mdbm_store_func
   m.cmd_rep           = '/usr/local/bin/mdbm_replace'
   m.full_mode         = true
   m.dist_server_hosts = ['localhost']
@@ -44,7 +44,7 @@ end.run_dist
 |local_path|local mdbm path||
 |dist_path|mdbm path in remote servers||
 |cmd_print|print command path|need to make|
-|cmd_gen|generate mdbm command path|need to make|
+|cmd_gen|generate mdbm command path or :mdbm_store_func|need to make if you want to generate mdbm othert than String:String set like int64:String, int32:int64.if you set :mdbm_store_func only, set use mdbm.stroe() function.|
 |cmd_rep|replace mdbm command path|[mdbm_replace](https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst)|
 |full_mode|_true_: always update / _false_: when meta_incr_key is changed, do dist||
 |dist_server_hosts|distribute target server hosts array||
