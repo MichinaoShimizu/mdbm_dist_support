@@ -5,11 +5,10 @@ module MdbmDistSupport
   class Validator
     RUN_DIST_REQUIRE_INSTANCE_VARS =
       %i[@lock_path @meta_path @local_path @dist_path @cmd_print
-         @cmd_gen @cmd_rep @full_mode @dist_servers
-         @meta_incr_key].freeze
+         @cmd_gen @cmd_rep @full_mode @dist_servers].freeze
 
     RUN_PRINT_AFTER_REQUIRE_INSTANCE_VARS =
-      %i[@meta_path @meta_incr_key].freeze
+      %i[@meta_path].freeze
 
     include MdbmDistSupport::CustomLogger
 

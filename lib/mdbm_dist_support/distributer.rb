@@ -8,9 +8,10 @@ require 'mdbm'
 module MdbmDistSupport
   # Mdbm distributer
   class Distributer
+    INCR_KEY = 'meta_mdbm_increment_key'.freeze
     attr_accessor :lock_path, :meta_path, :meta, :local_path,\
                   :dist_path, :cmd_print, :cmd_gen, :cmd_rep,\
-                  :dist_servers, :meta_incr_key, :full_mode
+                  :dist_servers, :full_mode
 
     include MdbmDistSupport::CustomLogger
 
@@ -29,16 +30,16 @@ module MdbmDistSupport
 
     def run_print_after(meta_val)
       raise 'validate error' unless MdbmDistSupport::Validator.valid_run_print_after_settings?(instance_variables)
-      @meta.store(@meta_incr_key, meta_val)
+      @meta.store(INCR_KEY, meta_val)
     end
 
     private
 
     def local_up
       Tempfile.create('mdbm_dist_support') do |f|
-        date_b = @meta.fetch(@meta_incr_key)
+        date_b = @meta.fetch(INCR_KEY)
         cmd_exec %(#{@cmd_print} > #{f.path})
-        date_a = @meta.fetch(@meta_incr_key)
+        date_a = @meta.fetch(INCR_KEY)
         if @full_mode == false && date_a == date_b
           @@logger.info 'no need to update'
           break
@@ -49,7 +50,7 @@ module MdbmDistSupport
 
     def do_mdbm_store(f)
       f.each_line do |s|
-        kv = s.split("\t")
+        kv = s.chomp.split("\t")
         m = Mdbm.new(@local_path, Mdbm::MDBM_O_RDWR | Mdbm::MDBM_O_CREAT, 0644, 0, 0)
         m.store(kv[0], kv[1], Mdbm::MDBM_REPLACE)
       end
