@@ -49,7 +49,7 @@ end.run_dist
 |cmd_print|print command path|need to make|
 |cmd_gen|generate mdbm command path or `:mdbm_store_func`|need to make if you want to generate mdbm othert than _String:String_ set like _int64:String_, _int32:int64_.if you set `:mdbm_store_func` only, set use mdbm.stroe() function.|
 |cmd_rep|replace mdbm command path|[mdbm_replace](https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst)|
-|full_mode|`true`: full `false`: incremental||
+|full_mode|`true`: full `false`: incremental|if `false` set, only distribute when `meta_mdbm_increment_key` key in meta was updated. So print_command should be call `run_print_after` when new data.|
 |dist_servers|distribute server info array||
 
 #### print.rb
@@ -57,11 +57,11 @@ end.run_dist
 require 'mdbm_dist_support'
 
 puts "1111111\tFUGAFUGA"
-fetched_max_date = '2017-09-09 11:11:11'
+inc_key = '2017-09-09 11:11:11'
 
 MdbmDistSupport::Distributer.new do |m|
   m.meta_path = '/tmp/hoge_meta.mdbm'
-end.run_print_after(fetched_max_date)
+end.run_print_after(inc_key)
 ```
 #### settings @run_print_after
 |name|value|
