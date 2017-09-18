@@ -44,7 +44,7 @@ end.run_dist
 |local_path|local mdbm path||
 |dist_path|mdbm path in remote servers||
 |cmd_print|print command path|need to make|
-|cmd_gen|generate mdbm command path or :mdbm_store_func|need to make if you want to generate mdbm othert than String:String set like int64:String, int32:int64.if you set :mdbm_store_func only, set use mdbm.stroe() function.|
+|cmd_gen|generate mdbm command path or `:mdbm_store_func`|need to make if you want to generate mdbm othert than _String:String_ set like _int64:String_, _int32:int64_.if you set `:mdbm_store_func` only, set use mdbm.stroe() function.|
 |cmd_rep|replace mdbm command path|[mdbm_replace](https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst)|
 |full_mode|_true_: always update / _false_: when meta_incr_key is changed, do dist||
 |dist_server_hosts|distribute target server hosts array||
