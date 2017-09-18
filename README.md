@@ -37,7 +37,6 @@ MdbmDistSupport::Distributer.new do |m|
       :host => 'remote2', :port => 22, :user => 'hee', :key => '/home/hee/.ssh/id_rsa',
       :host => 'remote3', :port => 22, :user => 'hyo', :key => '/home/hyo/.ssh/id_rsa',
     ]
-  m.meta_incr_key = 'when_processed_fetched_max_date'
 end.run_dist
 ```
 #### settings @run_dist
@@ -52,7 +51,6 @@ end.run_dist
 |cmd_rep|replace mdbm command path|[mdbm_replace](https://github.com/yahoo/mdbm/blob/master/gendoc/mdbm_replace.rst)|
 |full_mode|`true`: full `false`: incremental||
 |dist_servers|distribute server info array||
-|meta_incr_key|meta mdbm key using incremental mode||
 
 #### print.rb
 ```ruby
@@ -62,15 +60,13 @@ puts "1111111\tFUGAFUGA"
 fetched_max_date = '2017-09-09 11:11:11'
 
 MdbmDistSupport::Distributer.new do |m|
-  m.meta_path     = '/tmp/hoge_meta.mdbm'
-  m.meta_incr_key = 'when_processed_fetched_max_date'
+  m.meta_path = '/tmp/hoge_meta.mdbm'
 end.run_print_after(fetched_max_date)
 ```
 #### settings @run_print_after
 |name|value|
 |:-----------|:------------|
 |meta_path|meta mdbm path|
-|meta_incr_key|meta mdbm key using incremental mode|
 
 ## Requires
 * [mdbm](https://github.com/yahoo/mdbm)
