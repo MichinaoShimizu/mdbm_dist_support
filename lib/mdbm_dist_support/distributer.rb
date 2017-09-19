@@ -46,6 +46,7 @@ module MdbmDistSupport
         (@cmd_gen == :mdbm_store_func) ? do_mdbm_store(f) : do_outer_gen_cmd(f)
         rc = true
       end
+      rc
     end
 
     def do_mdbm_store(f)
