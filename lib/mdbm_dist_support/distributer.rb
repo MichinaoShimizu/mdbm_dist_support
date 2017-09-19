@@ -41,6 +41,7 @@ module MdbmDistSupport
         cmd_exec %(#{@cmd_print} > #{f.path})
         date_a = @meta.fetch(INCR_KEY)
         if @full_mode == false && date_a == date_b
+          rc = false
           @@logger.info 'no need to update'
         end
         (@cmd_gen == :mdbm_store_func) ? do_mdbm_store(f) : do_outer_gen_cmd(f)
