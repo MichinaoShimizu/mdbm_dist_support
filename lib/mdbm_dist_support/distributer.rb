@@ -62,8 +62,8 @@ module MdbmDistSupport
 
     def dist
       @dist_servers.each do |s|
-        cmd_exec %(scp -P #{s[:port]} -i #{s[:key]} #{@local_path} #{s[:user]}@#{s[:host]}:#{@dist_path}.tmp)
-        cmd_exec %(ssh -p #{s[:port]} -i #{s[:key]} #{s[:user]}@#{s[:host]} \" #{@cmd_rep} #{@dist_path} #{@dist_path}.tmp && chmod 777 #{@dist_path}\")
+        cmd_exec %(scp -P #{s['por't]} -i #{s['key']} #{@local_path} #{s['user']}@#{s['host']}:#{@dist_path}.tmp)
+        cmd_exec %(ssh -p #{s['port']} -i #{s['key']} #{s['user']}@#{s['host']} \" #{@cmd_rep} #{@dist_path} #{@dist_path}.tmp && chmod 777 #{@dist_path}\")
       end
     end
 
