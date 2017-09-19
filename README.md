@@ -73,6 +73,9 @@ end.run_print_after(inc_val)
 * [mdbm](https://github.com/yahoo/mdbm)
 
 ## Generate mdbm command module
+
+If you want to generate other than `String:String` kvsets, you should make theese commands.
+
 * int64_str_mdbm
 * int32_str_mdbm
 * int32_int64_mdbm
