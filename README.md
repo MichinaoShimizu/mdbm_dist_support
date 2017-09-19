@@ -34,9 +34,9 @@ MdbmDistSupport::Distributer.new do |m|
   m.full_mode     = true
   m.dist_servers  =
   [
-    :host => 'remote1', :port => 22, :user => 'foo', :key => '/home/foo/.ssh/id_rsa',
-    :host => 'remote2', :port => 22, :user => 'hee', :key => '/home/hee/.ssh/id_rsa',
-    :host => 'remote3', :port => 22, :user => 'hyo', :key => '/home/hyo/.ssh/id_rsa',
+    'host' => 'remote1', 'port' => 22, 'user' => 'foo', 'key' => '/home/foo/.ssh/id_rsa',
+    'host' => 'remote2', 'port' => 22, 'user' => 'hee', 'key' => '/home/hee/.ssh/id_rsa',
+    'host' => 'remote3', 'port' => 22, 'user' => 'hyo', 'key' => '/home/hyo/.ssh/id_rsa',
   ]
 end.run_dist
 ```
