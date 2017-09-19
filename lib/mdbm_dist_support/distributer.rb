@@ -35,7 +35,7 @@ module MdbmDistSupport
     private
 
     def local_up
-      rc = false
+      rc = true
       Tempfile.create('mdbm_dist_support') do |f|
         date_b = @meta.fetch(INCR_KEY)
         cmd_exec %(#{@cmd_print} > #{f.path})
@@ -44,9 +44,11 @@ module MdbmDistSupport
           @@logger.info 'no need to update'
         end
         (@cmd_gen == :mdbm_store_func) ? do_mdbm_store(f) : do_outer_gen_cmd(f)
-        rc = true
       end
       rc
+    rescue => e
+      @@logger.error e
+      return false
     end
 
     def do_mdbm_store(f)
