@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mdbm_dist_support (0.2.7)
+    mdbm_dist_support (0.2.8)
       ruby-mdbm (>= 0.0.2)
 
 GEM
