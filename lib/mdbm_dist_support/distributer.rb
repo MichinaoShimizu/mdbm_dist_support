@@ -43,8 +43,9 @@ module MdbmDistSupport
         if @full_mode == false && date_a == date_b
           rc = false
           @@logger.info 'no need to update'
+        else
+          (@cmd_gen == :mdbm_store_func) ? do_mdbm_store(f) : do_outer_gen_cmd(f)
         end
-        (@cmd_gen == :mdbm_store_func) ? do_mdbm_store(f) : do_outer_gen_cmd(f)
       end
       rc
     rescue => e
