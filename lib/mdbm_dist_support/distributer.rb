@@ -23,8 +23,7 @@ module MdbmDistSupport
     def run_dist
       raise 'validate error' unless MdbmDistSupport::Validator.valid_run_dist_settings?(instance_variables)
       MdbmDistSupport::Lock.new(@lock_path).try_lock
-      local_up
-      dist
+      dist if local_up
       @@logger.info "#{__method__} complete"
     end
 
@@ -36,15 +35,16 @@ module MdbmDistSupport
     private
 
     def local_up
+      rc = false
       Tempfile.create('mdbm_dist_support') do |f|
         date_b = @meta.fetch(INCR_KEY)
         cmd_exec %(#{@cmd_print} > #{f.path})
         date_a = @meta.fetch(INCR_KEY)
         if @full_mode == false && date_a == date_b
           @@logger.info 'no need to update'
-          break
         end
         (@cmd_gen == :mdbm_store_func) ? do_mdbm_store(f) : do_outer_gen_cmd(f)
+        rc = true
       end
     end
 
