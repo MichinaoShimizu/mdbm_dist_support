@@ -58,11 +58,11 @@ end.run_dist
 require 'mdbm_dist_support'
 
 puts "1111111\tFUGAFUGA"
-inc_key = '2017-09-09 11:11:11'
+inc_val = '2017-09-09 11:11:11'
 
 MdbmDistSupport::Distributer.new do |m|
   m.meta_path = '/tmp/hoge_meta.mdbm'
-end.run_print_after(inc_key)
+end.run_print_after(inc_val)
 ```
 #### settings @run_print_after
 |name|value|
