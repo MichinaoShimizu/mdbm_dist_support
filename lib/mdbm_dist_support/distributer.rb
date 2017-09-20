@@ -23,7 +23,7 @@ module MdbmDistSupport
 
     def run_dist
       raise 'validate error' unless MdbmDistSupport::Validator.valid_run_dist_settings?(instance_variables)
-      MdbmDistSupport::Lock.new(@lock_path).try_lock
+      raise 'lock error' unless MdbmDistSupport::Lock.new(@lock_path).try_lock
       dist if local_up
       @@logger.info "#{__method__} complete"
     end
@@ -41,6 +41,7 @@ module MdbmDistSupport
         date_b = @meta.fetch(INCR_KEY)
         cmd_exec %(#{@cmd_print} > #{f.path})
         date_a = @meta.fetch(INCR_KEY)
+
         if @full_mode == false && date_a == date_b
           rc = false
           @@logger.info 'no need to update'

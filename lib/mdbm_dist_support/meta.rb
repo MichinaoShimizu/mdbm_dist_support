@@ -1,9 +1,12 @@
 require 'mdbm'
+require 'mdbm_dist_support/custom_logger'
 
 module MdbmDistSupport
   # Meta mdbm manager
   class Meta
     attr_accessor :meta
+
+    include MdbmDistSupport::CustomLogger
 
     def initialize(path)
       @meta = Mdbm.new(path, Mdbm::MDBM_O_RDWR | Mdbm::MDBM_O_CREAT, 0644, 0, 0)

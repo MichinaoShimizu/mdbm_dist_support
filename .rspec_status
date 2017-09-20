@@ -1,7 +1,14 @@
 example_id                            | status | run_time        |
 ------------------------------------- | ------ | --------------- |
-./spec/mdbm_dist_support_spec.rb[1:1] | passed | 0.01736 seconds |
-./spec/mdbm_dist_support_spec.rb[1:2] | passed | 0.09077 seconds |
-./spec/mdbm_dist_support_spec.rb[1:3] | passed | 0.00044 seconds |
-./spec/mdbm_dist_support_spec.rb[1:4] | passed | 0.0001 seconds  |
-./spec/mdbm_dist_support_spec.rb[1:5] | passed | 0.0002 seconds  |
+./spec/mdbm_dist_support_spec.rb[1:1] | passed | 0.00089 seconds |
+./spec/mdbm_dist_support_spec.rb[2:1] | passed | 0.00067 seconds |
+./spec/mdbm_dist_support_spec.rb[2:2] | passed | 0.00035 seconds |
+./spec/mdbm_dist_support_spec.rb[2:3] | passed | 0.00011 seconds |
+./spec/mdbm_dist_support_spec.rb[2:4] | passed | 0.00023 seconds |
+./spec/mdbm_dist_support_spec.rb[3:1] | passed | 0.00049 seconds |
+./spec/mdbm_dist_support_spec.rb[3:2] | passed | 0.00036 seconds |
+./spec/mdbm_dist_support_spec.rb[4:1] | passed | 0.01253 seconds |
+./spec/mdbm_dist_support_spec.rb[4:2] | passed | 0.00046 seconds |
+./spec/mdbm_dist_support_spec.rb[4:3] | passed | 0.00043 seconds |
+./spec/mdbm_dist_support_spec.rb[4:4] | passed | 0.0004 seconds  |
+./spec/mdbm_dist_support_spec.rb[4:5] | passed | 0.00046 seconds |
