@@ -3,6 +3,7 @@ require 'mdbm_dist_support/meta'
 require 'mdbm_dist_support/lock'
 require 'mdbm_dist_support/validator'
 require 'tempfile'
+require 'shellwords'
 require 'mdbm'
 
 module MdbmDistSupport
@@ -62,20 +63,24 @@ module MdbmDistSupport
     end
 
     def do_outer_gen_cmd(f)
-      cmd_exec %(cat #{f.path} | #{@cmd_gen} #{@local_path})
+      cmd_exec %(cat #{se(f.path)} | #{se(@cmd_gen)} #{se(@local_path)})
     end
 
     def dist
       @dist_servers.each do |s|
-        cmd_exec %(scp -P #{s['port']} -i #{s['key']} #{@local_path} #{s['user']}@#{s['host']}:#{@dist_path}.tmp)
-        cmd_exec %(ssh -p #{s['port']} -i #{s['key']} #{s['user']}@#{s['host']} \" #{@cmd_rep} #{@dist_path} #{@dist_path}.tmp && chmod 777 #{@dist_path}\")
+        cmd_exec %(scp -P #{se(s['port'])} -i #{se(s['key'])} #{se(@local_path)} #{se(s['user'])}@#{se(s['host'])}:#{se(@dist_path)}.tmp)
+        cmd_exec %(ssh -p #{se(s['port'])} -i #{se(s['key'])} #{se(s['user'])}@#{se(s['host'])} \" #{se(@cmd_rep)} #{se(@dist_path)} #{se(@dist_path)}.tmp && chmod 777 #{se(@dist_path)}\")
       end
+    end
+
+    def se(str)
+      Shellwords.escape(str)
     end
 
     def cmd_exec(cmd)
       @@logger.info cmd
       Kernel.system cmd
-      raise $? unless $?.exitstatus.zero?
+      raise %(child process error: #{$?}) unless $?.exitstatus.zero?
     end
   end
 end
