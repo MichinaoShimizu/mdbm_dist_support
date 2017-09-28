@@ -1,6 +1,9 @@
 require "bundler/setup"
 require "simplecov"
-SimpleCov.start
+SimpleCov.start do
+  coverage_dir 'docs'
+  add_filter 'spec'
+end
 require 'mdbm_dist_support'
 
 RSpec.configure do |config|
