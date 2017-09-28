@@ -1,7 +1,7 @@
 require "bundler/setup"
 require "simplecov"
 SimpleCov.start do
-  coverage_dir 'docs'
+  coverage_dir 'coverage'
   add_filter 'spec'
 end
 require 'mdbm_dist_support'
