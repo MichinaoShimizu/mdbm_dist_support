@@ -23,10 +23,10 @@ module MdbmDistSupport
 
     def run_dist
       unless MdbmDistSupport::Validator.valid_run_dist_settings?(instance_variables)
-				raise InvalidSettingsError
+        raise 'invalid settings'
 			end
       unless MdbmDistSupport::Lock.new(@lock_path).try_lock
-				raise MissLockError
+        raise 'could not get lock'
 			end
       dist if local_up
       @@logger.info "#{__method__} complete"
@@ -34,7 +34,7 @@ module MdbmDistSupport
 
     def run_print_after(meta_val)
       unless MdbmDistSupport::Validator.valid_run_print_after_settings?(instance_variables)
-				raise InvalidSettingsError
+        raise 'invalid settings'
 			end
       @meta.store(INCR_KEY, meta_val)
     end
@@ -88,7 +88,7 @@ module MdbmDistSupport
       @@logger.info cmd
       Kernel.system cmd
       unless $?.exitstatus.zero?
-				raise MissExecSubprocessError
+        raise "miss execute subprocess: #{$?}"
 			end
     end
   end
