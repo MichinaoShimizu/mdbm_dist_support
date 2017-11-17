@@ -24,10 +24,10 @@ module MdbmDistSupport
     def run_dist
       unless MdbmDistSupport::Validator.valid_run_dist_settings?(instance_variables)
         raise 'invalid settings'
-			end
+      end
       unless MdbmDistSupport::Lock.new(@lock_path).try_lock
         raise 'could not get lock'
-			end
+      end
       dist if local_up
       @@logger.info "#{__method__} complete"
     end
@@ -35,7 +35,7 @@ module MdbmDistSupport
     def run_print_after(meta_val)
       unless MdbmDistSupport::Validator.valid_run_print_after_settings?(instance_variables)
         raise 'invalid settings'
-			end
+      end
       @meta.store(INCR_KEY, meta_val)
     end
 
@@ -43,7 +43,7 @@ module MdbmDistSupport
 
     def local_up
       rc = true
-      Tempfile.create('mdbm_dist_support') do |f|
+      Tempfile.open('mdbm_dist_support') do |f|
         date_b = @meta.fetch(INCR_KEY)
         cmd_exec %(#{@cmd_print} > #{f.path})
         date_a = @meta.fetch(INCR_KEY)
@@ -89,7 +89,7 @@ module MdbmDistSupport
       Kernel.system cmd
       unless $?.exitstatus.zero?
         raise "miss execute subprocess: #{$?}"
-			end
+      end
     end
   end
 end
